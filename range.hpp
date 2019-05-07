@@ -1,31 +1,51 @@
 #pragma once
 
 #include <iostream>
-// #include "range.hpp"
-#include "chain.hpp"
-#include "zip.hpp"
-#include "product.hpp"
-#include "powerset.hpp"
 
 using namespace std;
 
 namespace itertools {
-    template<typename T> class range{
+    template<class T> 
+    class range{
         private:
             T firstIncluded;
             T lastExcluded;
 
+            class iter{ //private inner class. should behave like iterator.
+                public:
+                    T value;
+
+                    iter(T value) : value(value){}; //inline constructor for iter.
+
+                    //operators: to behave like iterator, we need: ++(increment) , *(access) , !=(not equal) 
+                    iter &operator++(){
+                        value++;
+                        return *this;
+                    }
+                    
+                    T operator*(){
+                        return value;
+                    }
+
+                    bool operator!=(iter &other){
+                        return value != other.value;
+                    }
+            };
+
         public:
-            range(T, T);  //constructor
+            range(T a,T b) : firstIncluded(a), lastExcluded(b) {} //inline constructor for range<T>.
 
-            T* begin(); //TODO: update this.
-            T* end(); //TODO: update this.
+            iter begin(){ 
+                return iter(firstIncluded);
+            }; 
 
-            operator T(); //used for itertools::chain
+            iter end(){ 
+                return iter(lastExcluded);
+            };
+
+            operator T(); //used for itertools::chain, casting.
 
             friend std::ostream& operator<<(std::ostream& os, const range& subset);
-
-
 
     };
 };
