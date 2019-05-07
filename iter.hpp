@@ -8,7 +8,7 @@ namespace itertools
 {
     template <class T>
     class iter
-    { //private inner class. should behave like iterator.
+    {
     public:
         T value;
 
