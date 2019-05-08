@@ -62,12 +62,12 @@ namespace itertools
 
         public:
            
-             typename chain<T,V>::iterator begin()
+            iterator begin()
             {
                 return iterator(firstContainer.begin(), firstContainer.end(),secondContainer.begin());
             }
 
-             typename chain<T,V>::iterator end()
+            iterator end()
             {
                 return iterator(firstContainer.end(), firstContainer.end(),secondContainer.end());
             }
