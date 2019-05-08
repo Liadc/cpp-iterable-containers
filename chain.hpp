@@ -10,50 +10,66 @@ namespace itertools
     template <typename T, typename V>
     class chain{ //might be of the form chain< range<char>, string> but iterator should return type char.
         private:
+
             T firstContainer;
             V secondContainer;
 
-            class doubleIter{ //private inner class. should behave like iterator.
+        public:
+           chain<T,V>(const T a, const V b): firstContainer(a), secondContainer(b){} //constructor
+          
+            class iterator{ //private inner class. should behave like iterator.
+            private:
+            typename T::iterator sFirstContainer;
+            typename T::iterator eFirstContainer;
+            typename V::iterator sSecondIterator;
             public:
-            typename T::iterator startFirstContainer;
-            typename T::iterator endFirstContainer;
-            typename V::iterator startSecondIterator;
-
-                doubleIter(typename T::iterator value1,typename T::iterator value2,typename V::iterator value3) : 
-                startFirstContainer(value1), endFirstContainer(value2),startSecondIterator(value3)
+                iterator(typename T::iterator _sFirstContainer,typename T::iterator _eFirstContainer,typename V::iterator _sSecondContainer) : 
+                sFirstContainer(_sFirstContainer), eFirstContainer(_eFirstContainer),sSecondIterator(_sSecondContainer)
                 {} //inline constructor for iter.
 
                 //operators: to behave like iterator, we need: ++(increment) , *(access) , !=(not equal)
-                template <typename E>
-                E &operator++()
+                iterator& operator++() //prefix ++
                 {
+                    if(sFirstContainer != eFirstContainer){
+                         ++sFirstContainer;
                     
+                    }else{
+                         ++sSecondIterator;
+                         
+                    }
+                    return *this;
                 }
 
-                template <typename E>
-                E operator*()
+                auto operator*()
                 {   
-
+                    if(sFirstContainer != eFirstContainer){
+                        return *sFirstContainer;
+                    }else{
+                        return *sSecondIterator;
+                    }
                 }
 
-                template <typename E>
-                bool operator!=(E &other)
+                bool operator==(iterator &other) const
                 {
-                   
+                   return (this->sFirstContainer == other.sFirstContainer &&  this->sSecondIterator == other.sSecondIterator);
+                }
+
+                bool operator!=(iterator &other) const
+                {
+                   return !(*this==other);
                 }
             };
 
         public:
-            chain(T a, V b): firstContainer(a), secondContainer(b){} //constructor
-            
-             doubleIter<T> typename begin()
+           
+             typename chain<T,V>::iterator begin()
             {
-                return doubleIter(firstContainer.begin(), firstContainer.end(),secondContainer.begin());
+                return iterator(firstContainer.begin(), firstContainer.end(),secondContainer.begin());
             }
 
-             doubleIter<V> typename end()
+             typename chain<T,V>::iterator end()
             {
-                return doubleIter(firstContainer.end(), firstContainer.end(),secondContainer.end());
+                return iterator(firstContainer.end(), firstContainer.end(),secondContainer.end());
             }
 
             // friend std::ostream& operator<<(std::ostream& os, const chain& subset);

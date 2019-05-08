@@ -29,16 +29,16 @@ int main() {
 
 	// Note: this example works even without your code.
 	// It shows that a string is also an "iterable" - it can be iterated with a for-each loop.
-	// cout << endl << endl << "Standard string: " << endl;
-	// for (char i: string("hello"))
-	// 	cout << i << " ";    // prints h e l l o 
+	cout << endl << endl << "Standard string: " << endl;
+	for (char i: string("hello"))
+		cout << i << " ";    // prints h e l l o 
 
-	// cout << endl << endl << "Chain of two ranges: " << endl;
-	// for (int i: chain(range(1,4), range(5,8)))
-	// 	cout << i;    // prints 123567
-	// cout << endl << endl << "Chain of a range and a string: " << endl;
-	// for (char i: chain(range('a','e'), string("hello")))
-	// 	cout << i;    // abcdhello
+	cout << endl << endl << "Chain of two ranges: " << endl;
+	for (int i: chain(range(1,4), range(5,8)))
+		cout << i;    // prints 123567
+	cout << endl << endl << "Chain of a range and a string: " << endl;
+	for (char i: chain(range('a','e'), string("hello")))
+		cout << i;    // abcdhello
 
 	// cout << endl << endl << "Zip a range of ints and a string (must be of the same size)" << endl;
 	// for (auto pair: zip(range(1,6), string("hello")))

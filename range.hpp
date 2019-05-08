@@ -9,41 +9,40 @@ namespace itertools {
     class range{
 
         private:
-        T begin_;
-        T end_;
+        T _begin;
+        T _end;
         public:
-        
+        range<T>(const T begin,const T end)
+        :_begin(begin),_end(end){}
+
+
         class iterator{
-            friend class range;
+            private:
+            T curr;
             public:
+            iterator(T element): curr(element){}
+
             T operator*() const {
-                 return i_;
+                 return curr;
             }
                  
-            const iterator& operator ++(){ 
-                ++i_;
+            iterator& operator ++(){ 
+                ++curr;
                 return *this;
                 }
 
             iterator operator ++(int) { 
                 iterator copy(*this);
-                ++i_;
-                return(copy);
+                ++curr;
+                return copy;
             }
 
-            bool operator ==(const iterator& other) const { return i_ == other.i_;}
-            bool operator !=(const iterator& other) const { return i_ != other.i_;}
-
-            protected:
-            iterator(T start) : i_ (start){}
-
-            private:
-            T i_;
+            bool operator ==(const iterator& other) const { return curr == other.curr;}
+            bool operator !=(const iterator& other) const { return curr != other.curr;}
         };
 
-        iterator begin() const { return begin_; }
-        iterator end() const { return end_;}
-        range(T begin,T end):begin_(begin), end_(end) {}
+        iterator begin() { return range<T>::iterator(_begin); }
+        iterator end() { return range<T>::iterator(_end);}
 
         };
 
