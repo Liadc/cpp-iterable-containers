@@ -15,7 +15,7 @@ namespace itertools
         iter(T value) : value(value){}; //inline constructor for iter.
 
         //operators: to behave like iterator, we need: ++(increment) , *(access) , !=(not equal)
-        iter &operator++()
+        iter &operator++(T)
         {
             value++;
             return *this;

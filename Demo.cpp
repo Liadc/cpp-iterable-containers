@@ -29,9 +29,9 @@ int main() {
 
 	// Note: this example works even without your code.
 	// It shows that a string is also an "iterable" - it can be iterated with a for-each loop.
-	cout << endl << endl << "Standard string: " << endl;
-	for (char i: string("hello"))
-		cout << i << " ";    // prints h e l l o 
+	// cout << endl << endl << "Standard string: " << endl;
+	// for (char i: string("hello"))
+	// 	cout << i << " ";    // prints h e l l o 
 
 	// cout << endl << endl << "Chain of two ranges: " << endl;
 	// for (int i: chain(range(1,4), range(5,8)))

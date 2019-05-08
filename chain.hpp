@@ -1,14 +1,13 @@
 #pragma once
 
 #include <iostream>
-#include "iter.hpp"
 #include "range.hpp"
 
 using namespace std;
 
 namespace itertools
 {
-    template <class T, class V>
+    template <typename T, typename V>
     class chain{ //might be of the form chain< range<char>, string> but iterator should return type char.
         private:
             T firstContainer;
@@ -16,48 +15,46 @@ namespace itertools
 
             class doubleIter{ //private inner class. should behave like iterator.
             public:
-                T value1;
-                V value2;
-                bool first;
+            typename T::iterator startFirstContainer;
+            typename T::iterator endFirstContainer;
+            typename V::iterator startSecondIterator;
 
-                doubleIter(T value1, V value2) : value1(*value1), value2(*value2), first(true){}; //inline constructor for iter.
+                doubleIter(typename T::iterator value1,typename T::iterator value2,typename V::iterator value3) : 
+                startFirstContainer(value1), endFirstContainer(value2),startSecondIterator(value3)
+                {} //inline constructor for iter.
 
                 //operators: to behave like iterator, we need: ++(increment) , *(access) , !=(not equal)
                 template <typename E>
                 E &operator++()
                 {
-                    //todo
+                    
                 }
 
                 template <typename E>
                 E operator*()
                 {   
-                    if(first)
-                        return *value1;
-                    else{
-                        return *value2;
-                    }
+
                 }
 
                 template <typename E>
                 bool operator!=(E &other)
                 {
-                    return value1 != other.value1;
+                   
                 }
             };
 
         public:
             chain(T a, V b): firstContainer(a), secondContainer(b){} //constructor
-
-            iter<T> begin()
+            
+             doubleIter<T> typename begin()
             {
-                return doubleIter(firstContainer, secondContainer);
-            };
+                return doubleIter(firstContainer.begin(), firstContainer.end(),secondContainer.begin());
+            }
 
-            iter<V> end()
+             doubleIter<V> typename end()
             {
-                return doubleIter(firstContainer, secondContainer);
-            };
+                return doubleIter(firstContainer.end(), firstContainer.end(),secondContainer.end());
+            }
 
             // friend std::ostream& operator<<(std::ostream& os, const chain& subset);
         };    
