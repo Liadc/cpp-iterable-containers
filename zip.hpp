@@ -37,7 +37,7 @@ namespace itertools
                     return *this;
                 }
 
-                auto operator*() //will return a "couple" of T and V
+                auto operator*() const //will return a "couple" of T and V
                 {   
                     return couple(*IT_FirstContainer,*IT_SecondContainer); 
                 }
