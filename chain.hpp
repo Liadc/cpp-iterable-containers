@@ -1,7 +1,6 @@
 #pragma once
 
 #include <iostream>
-#include "range.hpp"
 
 using namespace std;
 
@@ -14,14 +13,11 @@ namespace itertools
             T firstContainer;
             V secondContainer;
 
-        public:
-           chain<T,V>(const T a, const V b): firstContainer(a), secondContainer(b){} //constructor
-          
             class iterator{ //private inner class. should behave like iterator.
             private:
-            typename T::iterator FirstContainerIt_start; //the beginning of the first container.
-            typename T::iterator FirstContainerIt_end; //the end of the first container ( will be used to check if we already ended the first container (by FirstContainerIt_end == FirstContainerIt_end))
-            typename V::iterator SecondContainerIt_start; //the iterator of the SecondContainer
+                typename T::iterator FirstContainerIt_start; //the beginning of the first container.
+                typename T::iterator FirstContainerIt_end; //the end of the first container ( will be used to check if we already ended the first container (by FirstContainerIt_end == FirstContainerIt_end))
+                typename V::iterator SecondContainerIt_start; //the iterator of the SecondContainer
 
             public:
                 iterator(typename T::iterator _sFirstContainer,typename T::iterator _FirstContainerIt_end,typename V::iterator _sSecondContainer) : 
@@ -62,6 +58,8 @@ namespace itertools
             };
 
         public:
+           chain<T,V>(const T a, const V b): firstContainer(a), secondContainer(b){} //constructor
+
            //begin and end functions
             iterator begin()
             {
