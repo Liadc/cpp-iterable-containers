@@ -1,63 +1,77 @@
 #pragma once
 
 #include <iostream>
-#include "iter.hpp"
 #include "range.hpp"
 
 using namespace std;
 
 namespace itertools
 {
-    template <class T, class V>
+    template <typename T, typename V>
     class chain{ //might be of the form chain< range<char>, string> but iterator should return type char.
         private:
+
             T firstContainer;
             V secondContainer;
 
-            class doubleIter{ //private inner class. should behave like iterator.
-            public:
-                T value1;
-                V value2;
-                bool first;
+        public:
+           chain<T,V>(const T a, const V b): firstContainer(a), secondContainer(b){} //constructor
+          
+            class iterator{ //private inner class. should behave like iterator.
+            private:
+            typename T::iterator FirstContainerIt_start; //the beginning of the first container.
+            typename T::iterator FirstContainerIt_end; //the end of the first container ( will be used to check if we already ended the first container (by FirstContainerIt_end == FirstContainerIt_end))
+            typename V::iterator SecondContainerIt_start; //the iterator of the SecondContainer
 
-                doubleIter(T value1, V value2) : value1(*value1), value2(*value2), first(true){}; //inline constructor for iter.
+            public:
+                iterator(typename T::iterator _sFirstContainer,typename T::iterator _FirstContainerIt_end,typename V::iterator _sSecondContainer) : 
+                FirstContainerIt_start(_sFirstContainer), FirstContainerIt_end(_FirstContainerIt_end),SecondContainerIt_start(_sSecondContainer)
+                {} // constructor
 
                 //operators: to behave like iterator, we need: ++(increment) , *(access) , !=(not equal)
-                template <typename E>
-                E &operator++()
+                iterator& operator++() //prefix ++
                 {
-                    //todo
+                    if(FirstContainerIt_start != FirstContainerIt_end){ //if we already finished the first iterator
+                         ++FirstContainerIt_start;
+                    
+                    }else{
+                         ++SecondContainerIt_start;
+                         
+                    }
+                    return *this;
                 }
 
-                template <typename E>
-                E operator*()
+                auto operator*()
                 {   
-                    if(first)
-                        return *value1;
-                    else{
-                        return *value2;
+                    if(FirstContainerIt_start != FirstContainerIt_end){ //if we already finished the first iterator
+                        return *FirstContainerIt_start;
+                    }else{
+                        return *SecondContainerIt_start;
                     }
                 }
 
-                template <typename E>
-                bool operator!=(E &other)
+                bool operator==(iterator &other) const
                 {
-                    return value1 != other.value1;
+                   return (this->FirstContainerIt_start == other.FirstContainerIt_start &&  this->SecondContainerIt_start == other.SecondContainerIt_start);
+                }
+
+                bool operator!=(iterator &other) const
+                {
+                   return !(*this==other);
                 }
             };
 
         public:
-            chain(T a, V b): firstContainer(a), secondContainer(b){} //constructor
-
-            iter<T> begin()
+           //begin and end functions
+            iterator begin()
             {
-                return doubleIter(firstContainer, secondContainer);
-            };
+                return iterator(firstContainer.begin(), firstContainer.end(),secondContainer.begin());
+            }
 
-            iter<V> end()
+            iterator end()
             {
-                return doubleIter(firstContainer, secondContainer);
-            };
+                return iterator(firstContainer.end(), firstContainer.end(),secondContainer.end());
+            }
 
             // friend std::ostream& operator<<(std::ostream& os, const chain& subset);
         };    

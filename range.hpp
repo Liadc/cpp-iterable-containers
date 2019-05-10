@@ -1,33 +1,50 @@
 #pragma once
 
 #include <iostream>
-#include "iter.hpp"
 
 using namespace std;
 
 namespace itertools {
-    template<class T> 
+    template<typename T> 
     class range{
+
         private:
-            T firstIncluded;
-            T lastExcluded;
-
+        T _begin;
+        T _end;
         public:
-            range(T a,T b) : firstIncluded(a), lastExcluded(b) {} //inline constructor for range<T>.
+        //constructor
+        range<T>(const T begin,const T end)
+        :_begin(begin),_end(end){} 
 
-            iter<T> begin(){ 
-                return iter(firstIncluded);
-            }; 
+        //operators: to behave like iterator, we need: ++(increment) , *(access) , !=(not equal)
+        class iterator{
+            private:
+            T curr; //the current iterator.
+            public:
+            iterator(T element): curr(element){}
 
-            iter<T> end(){ 
-                return iter(lastExcluded);
-            };
+            T operator*() const {
+                 return curr;
+            }
+                 
+            iterator& operator ++(){ 
+                ++curr;
+                return *this;
+                }
 
-            // operator T(){
-            //     return 
-            // }; //used for itertools::chain, casting.
+            iterator operator ++(int) { 
+                iterator copy(*this);
+                ++curr;
+                return copy;
+            }
 
-            friend std::ostream& operator<<(std::ostream& os, const range& subset);
+            bool operator ==(const iterator& other) const { return curr == other.curr;}
+            bool operator !=(const iterator& other) const { return curr != other.curr;}
+        };
+        //begin and end function, will return the iterator of range<T>
+        iterator begin() { return range<T>::iterator(_begin); }
+        iterator end() { return range<T>::iterator(_end);}
 
-    };
-};
+        };
+    
+}
