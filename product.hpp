@@ -17,25 +17,18 @@ namespace itertools {
         product(T a, V b):firstProduct(a),secondProduct(b){}
         class iterator{
             private:
-
-            typename V::iterator secondItrSave;
             typename T::iterator firstItr;
             typename T::iterator firstItr_end;
             typename V::iterator secondItr;
             typename V::iterator secondItr_end;
+            typename V::iterator secondItrSave;
             public:
+            //constructor
             iterator(typename T::iterator first,typename T::iterator fend,typename V::iterator second,typename V::iterator send): 
             firstItr(first),secondItrSave(second),secondItr(second),firstItr_end(fend),secondItr_end(send){}
-                bool operator==(iterator& other) const
-                {
-                    return (this->firstItr == other.firstItr && this->secondItr == other.secondItr);
-                }
 
-                bool operator!=(iterator& other) const
-                {
-                    return !(*this==other);
-                }
-
+            
+            //operators: to behave like iterator, we need: ++(increment) , *(access) , !=(not equal)
             iterator& operator ++(){
                 if(secondItr != secondItr_end){
                     if(++secondItr != secondItr_end){
@@ -50,9 +43,20 @@ namespace itertools {
             auto operator *(){
                 return couple(*firstItr,*secondItr);
             }
+
+
+            bool operator==(iterator& other) const
+                {
+                return (this->firstItr == other.firstItr && this->secondItr == other.secondItr);
+                }
+
+            bool operator!=(iterator& other) const
+            {
+                return !(*this==other);
+            }
         };
 
-
+        //begin and end 
         iterator begin(){
             return product<T,V>::iterator(firstProduct.begin(),firstProduct.end(),secondProduct.begin(),secondProduct.end());
         }
