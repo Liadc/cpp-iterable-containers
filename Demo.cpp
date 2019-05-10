@@ -40,12 +40,12 @@ int main() {
 	for (char i: chain(range('a','e'), string("hello")))
 		cout << i;    // abcdhello
 
-	// cout << endl << endl << "Zip a range of ints and a string (must be of the same size)" << endl;
-	// for (auto pair: zip(range(1,6), string("hello")))
-	// 	cout << pair << "  ";    // 1,h  2,e  3,l  4,l  5,o
-	// cout << endl << endl << "Zip of zips" << endl;
-	// for (auto pair: zip(zip(range(1,4), string("xyz")),zip(string("abc"),range(6,9))))
-	// 	cout << pair << "  ";    // 1,x,a,6  2,y,b,7  3,z,c,8
+	cout << endl << endl << "Zip a range of ints and a string (must be of the same size)" << endl;
+	for (auto pair: zip(range(1,6), string("hello")))
+		cout << pair << "  ";    // 1,h  2,e  3,l  4,l  5,o
+	cout << endl << endl << "Zip of zips" << endl;
+	for (auto pair: zip(zip(range(1,4), string("xyz")),zip(string("abc"),range(6,9))))
+		cout << pair << "  ";    // 1,x,a,6  2,y,b,7  3,z,c,8
 
 	// cout << endl << endl << "Cartesian product of a range of ints and a string (can be of different sizes)" << endl;
 	// for (auto pair: product(range(1,4), string("hello")))

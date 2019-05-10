@@ -46,12 +46,5 @@ namespace itertools {
         iterator end() { return range<T>::iterator(_end);}
 
         };
-
-        //    operator T(){
-        //         return 
-        //     }; //used for itertools::chain, casting.
-
-            // friend std::ostream& operator<<(std::ostream& os, const range& subset);
-
     
-};
+}
