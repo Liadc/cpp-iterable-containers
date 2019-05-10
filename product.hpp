@@ -18,14 +18,14 @@ namespace itertools {
         class iterator{
             private:
 
-            typename T::iterator firstItrSave;
+            typename V::iterator secondItrSave;
             typename T::iterator firstItr;
             typename T::iterator firstItr_end;
             typename V::iterator secondItr;
             typename V::iterator secondItr_end;
             public:
             iterator(typename T::iterator first,typename T::iterator fend,typename V::iterator second,typename V::iterator send): 
-            firstItr(first),firstItrSave(first),secondItr(second),firstItr_end(fend),secondItr_end(send){}
+            firstItr(first),secondItrSave(second),secondItr(second),firstItr_end(fend),secondItr_end(send){}
                 bool operator==(iterator& other) const
                 {
                     return (this->firstItr == other.firstItr && this->secondItr == other.secondItr);
@@ -37,11 +37,11 @@ namespace itertools {
                 }
 
             iterator& operator ++(){
-                if(firstItr != firstItr_end){
-                    if(++firstItr != firstItr_end){
+                if(secondItr != secondItr_end){
+                    if(++secondItr != secondItr_end){
                     }else{
-                        if(++secondItr!=secondItr_end){
-                        firstItr = firstItrSave;
+                        if(++firstItr!=firstItr_end){
+                        secondItr = secondItrSave;
                         }
                     }
                 }
