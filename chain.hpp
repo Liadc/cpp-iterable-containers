@@ -12,8 +12,8 @@ namespace itertools
 
             T firstContainer;
             V secondContainer;
-
-            class iterator{ //private inner class. should behave like iterator.
+        public:
+            class iterator{ //inner class. should behave like iterator.
             private:
                 typename T::iterator FirstContainerIt_start; //the beginning of the first container.
                 typename T::iterator FirstContainerIt_end; //the end of the first container ( will be used to check if we already ended the first container (by FirstContainerIt_end == FirstContainerIt_end))
@@ -37,7 +37,7 @@ namespace itertools
                     return *this;
                 }
 
-                auto operator*()
+                auto operator* () const
                 {   
                     if(FirstContainerIt_start != FirstContainerIt_end){ //if we already finished the first iterator
                         return *FirstContainerIt_start;
@@ -55,9 +55,8 @@ namespace itertools
                 {
                    return !(*this==other);
                 }
-            };
+            }; //iterator inner class.
 
-        public:
            chain<T,V>(const T a, const V b): firstContainer(a), secondContainer(b){} //constructor
 
            //begin and end functions
