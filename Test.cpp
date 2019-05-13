@@ -8,6 +8,7 @@
 #include <iostream>
 using std::cout, std::endl;
 
+#include <iomanip>
 #include "badkan.hpp"
 #include "range.hpp"
 #include "chain.hpp"
@@ -20,6 +21,7 @@ template<typename Iterable>
 string iterable_to_string(const Iterable& iterable){
  ostringstream ostr;
  for(decltype(*iterable.begin()) i: iterable){
+  //  ostr << std::setprecision(1);
    ostr << i << ",";
  }     
  return ostr.str();
@@ -30,25 +32,49 @@ int main() {
      tc.setname("Range test");
 
 
-    //containers:
+    //Containers:
+
+        //Ranges:
     range int1 = range(-1,3);
     range int2 = range(6,7);
     range double1 = range(-1.1,3.1);
     range char1 = range('a','d');
+    string str = "our test";
+        //Chains:
+    chain c1 = chain(int1,int2);
+    chain c2 = chain(str,char1);
+    chain c3 = chain(int1,double1);
 
+
+
+    //Answers
+      //Range answers:
     string int1Ans = "-1,0,1,2,";
     string int2Ans = "6,";
     string double1Ans = "-1.1,-0.1,1.1,2.1,";
     string char1Ans = "a,b,c,";
 
-    string rangeAnswerArr[4] = {int1Ans,int2Ans,double1Ans,char1Ans}; 
+      //Chain answers:
 
+    string c1Ans = "-1,0,1,2,6,";
+    string c2Ans = "o,u,r, ,t,e,s,t,a,b,c,";
+    // string c3Ans = "";
+    //Arrayed Answers
+    string rangeAnswerArr[4] = {int1Ans,int2Ans,double1Ans,char1Ans}; 
+    string chainAnswerArr[2] = {c1Ans,c2Ans};
       cout<< "before tests" << endl;
-      tc
+      tc.setname("Ranges:")
       .CHECK_EQUAL(iterable_to_string(int1),rangeAnswerArr[0])
       .CHECK_EQUAL(iterable_to_string(int2),rangeAnswerArr[1])
       // .CHECK_EQUAL(iterable_to_string(double1),rangeAnswerArr[2]) //not working!!!
       .CHECK_EQUAL(iterable_to_string(char1),rangeAnswerArr[3])
+
+      .setname("Chains:")
+      .CHECK_EQUAL(iterable_to_string(c1),chainAnswerArr[0])
+      // .CHECK_EQUAL(iterable_to_string(c2),chainAnswerArr[1]) Error
+      // .CHECK_EQUAL(iterable_to_string(double1),rangeAnswerArr[2]) //not working!!!
+      // .CHECK_EQUAL(iterable_to_string(c3),rangeAnswerArr[3])
+
       .print();
 
       cout<< "after tests" << endl;
