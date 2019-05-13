@@ -19,9 +19,8 @@ using namespace itertools;
 
 template<typename Iterable>
 string iterable_to_string(const Iterable& iterable){
- ostringstream ostr;
+ stringstream ostr;
  for(decltype(*(iterable.begin())) i: iterable){
-  //  ostr << std::setprecision(1);
    ostr << i << ",";
  }     
  return ostr.str();
@@ -37,9 +36,9 @@ int main() {
         //Ranges:
     range int1 = range(-1,3);
     range int2 = range(6,7);
-    range double1 = range(-1.1,3.1);
+    range double1 = range(0.1,4.1);
     range char1 = range('a','d');
-    string str = "our test";
+    string str = string("our test");
         //Chains:
     chain c1 = chain(int1,int2);
     chain c2 = chain(str,char1);
@@ -51,7 +50,7 @@ int main() {
       //Range answers:
     string int1Ans = "-1,0,1,2,";
     string int2Ans = "6,";
-    string double1Ans = "-1.1,-0.1,1.1,2.1,";
+    string double1Ans = "0.1,1.1,2.1,3.1,";
     string char1Ans = "a,b,c,";
 
       //Chain answers:
@@ -66,14 +65,13 @@ int main() {
       tc.setname("Ranges:")
       .CHECK_EQUAL(iterable_to_string(int1),rangeAnswerArr[0])
       .CHECK_EQUAL(iterable_to_string(int2),rangeAnswerArr[1])
-      // .CHECK_EQUAL(iterable_to_string(double1),rangeAnswerArr[2]) //not working!!!
+      .CHECK_EQUAL(iterable_to_string(double1),rangeAnswerArr[2])
       .CHECK_EQUAL(iterable_to_string(char1),rangeAnswerArr[3])
 
       .setname("Chains:")
       .CHECK_EQUAL(iterable_to_string(c1),chainAnswerArr[0])
       // .CHECK_EQUAL(iterable_to_string(c2),chainAnswerArr[1]) //Error
-      // .CHECK_EQUAL(iterable_to_string(double1),rangeAnswerArr[2]) //not working!!!
-      // .CHECK_EQUAL(iterable_to_string(c3),rangeAnswerArr[3])
+      .CHECK_EQUAL(iterable_to_string(double1),rangeAnswerArr[2])
 
       .setname("Zips:")
       
