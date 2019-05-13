@@ -42,8 +42,8 @@ namespace itertools {
             bool operator !=(const iterator& other) const { return curr != other.curr;}
         };
         //begin and end function, will return the iterator of range<T>
-        iterator begin() { return range<T>::iterator(_begin); }
-        iterator end() { return range<T>::iterator(_end);}
+        iterator begin() const { return range<T>::iterator(_begin); } //for iterator_to_string function this MUST be const.
+        iterator end() const { return range<T>::iterator(_end);} 
 
 
         };
