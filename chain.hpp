@@ -15,12 +15,12 @@ namespace itertools
         public:
             class iterator{ //inner class. should behave like iterator.
             private:
-                typename T::iterator FirstContainerIt_start; //the beginning of the first container.
-                typename T::iterator FirstContainerIt_end; //the end of the first container ( will be used to check if we already ended the first container (by FirstContainerIt_end == FirstContainerIt_end))
-                typename V::iterator SecondContainerIt_start; //the iterator of the SecondContainer
+                decltype(firstContainer.begin()) FirstContainerIt_start; //the beginning of the first container.
+                decltype(firstContainer.end()) FirstContainerIt_end; //the end of the first container ( will be used to check if we already ended the first container (by FirstContainerIt_end == FirstContainerIt_end))
+                decltype(secondContainer.begin()) SecondContainerIt_start; //the iterator of the SecondContainer
 
             public:
-                iterator(typename T::iterator _sFirstContainer,typename T::iterator _FirstContainerIt_end,typename V::iterator _sSecondContainer) : 
+                iterator(decltype(firstContainer.begin()) _sFirstContainer,decltype(firstContainer.end()) _FirstContainerIt_end,decltype(secondContainer.begin()) _sSecondContainer) : 
                 FirstContainerIt_start(_sFirstContainer), FirstContainerIt_end(_FirstContainerIt_end),SecondContainerIt_start(_sSecondContainer)
                 {} // constructor
 
@@ -60,12 +60,12 @@ namespace itertools
            chain<T,V>(const T a, const V b): firstContainer(a), secondContainer(b){} //constructor
 
            //begin and end functions
-            iterator begin() const
+            auto begin()
             {
                 return chain<T,V>::iterator(firstContainer.begin(), firstContainer.end(),secondContainer.begin());
             }
 
-            iterator end() const
+            auto end()
             {
                 return chain<T,V>::iterator(firstContainer.end(), firstContainer.end(),secondContainer.end());
             }
