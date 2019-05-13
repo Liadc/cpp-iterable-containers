@@ -20,7 +20,7 @@ using namespace itertools;
 template<typename Iterable>
 string iterable_to_string(const Iterable& iterable){
  ostringstream ostr;
- for(decltype(*iterable.begin()) i: iterable){
+ for(decltype(*(iterable.begin())) i: iterable){
   //  ostr << std::setprecision(1);
    ostr << i << ",";
  }     
@@ -71,9 +71,17 @@ int main() {
 
       .setname("Chains:")
       .CHECK_EQUAL(iterable_to_string(c1),chainAnswerArr[0])
-      // .CHECK_EQUAL(iterable_to_string(c2),chainAnswerArr[1]) Error
+      // .CHECK_EQUAL(iterable_to_string(c2),chainAnswerArr[1]) //Error
       // .CHECK_EQUAL(iterable_to_string(double1),rangeAnswerArr[2]) //not working!!!
       // .CHECK_EQUAL(iterable_to_string(c3),rangeAnswerArr[3])
+
+      .setname("Zips:")
+      
+      .setname("Products:")
+      
+
+      .setname("Powersets:")
+      
 
       .print();
 

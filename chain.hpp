@@ -62,12 +62,12 @@ namespace itertools
            //begin and end functions
             iterator begin() const
             {
-                return iterator(firstContainer.begin(), firstContainer.end(),secondContainer.begin());
+                return chain<T,V>::iterator(firstContainer.begin(), firstContainer.end(),secondContainer.begin());
             }
 
             iterator end() const
             {
-                return iterator(firstContainer.end(), firstContainer.end(),secondContainer.end());
+                return chain<T,V>::iterator(firstContainer.end(), firstContainer.end(),secondContainer.end());
             }
 
             // friend std::ostream& operator<<(std::ostream& os, const chain& subset);
