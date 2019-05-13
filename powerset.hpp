@@ -52,14 +52,15 @@ namespace itertools
 
             std::set<decltype(*cont_first)> operator*() const //a powerset is a set containig sets. we decided each subset to be std::set.
             {
-                typename T::iterator elem_it = cont_first; //element_it is the element-iterator.
                 set<decltype(*cont_first)> subset;
+                typename T::iterator elem_it = cont_first; //element_it is the element-iterator.
                 unsigned int i = indexSubset; //current index
-                while (i != 0 && *elem_it != *cont_last) //not the first element, and the dereferenced element-iterator is different than the last container value,
-                { // convert to binary, each '1' digit is an index of an element.
-                    unsigned int r = i % 2;
+                while ( *elem_it != *cont_last && i != 0 ) //not the first element, and the dereferenced element-iterator is different than the last container value,
+                { // binary logic, every '1' is an index of an element.
+                    unsigned int rem = i % 2; //rem is zero or 1.  1 indicates we need to insert the element into the subset, zero is the end of subset. 
+                    //(power of 2, is next subset).
                     i /= 2; // divide i by 2, store in i.
-                    if (r == 1){
+                    if (rem == 1){
                         subset.insert(*elem_it);
                     }
                     ++elem_it;
