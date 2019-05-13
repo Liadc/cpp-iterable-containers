@@ -73,10 +73,10 @@ namespace itertools
     public: //public of powerset.
         powerset(const T iterable) : containerObject(iterable) {} //constructor
 
-        iterator begin(){
+        iterator begin() const{
             return iterator(containerObject.begin(),containerObject.end());
         }; 
-        iterator end(){
+        iterator end()const{
             return iterator(containerObject.end(), containerObject.end());
         };
 
