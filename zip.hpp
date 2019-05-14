@@ -21,14 +21,11 @@ namespace itertools
           
             class iterator{ //private inner class. should behave like iterator.
             private:
-            typename T::iterator IT_FirstContainer; //the beginning of the first container.
-            typename V::iterator IT_SecondContainer; //the beginning of the second container.
+                decltype(firstContainer.begin()) IT_FirstContainer; //the beginning of the first container.
+                decltype(secondContainer.begin()) IT_SecondContainer; //the beginning of the second container.
             public:
-            iterator(typename T::iterator first,typename V::iterator second):IT_FirstContainer(first),IT_SecondContainer(second){
-                
+                iterator(decltype(firstContainer.begin()) first,decltype(secondContainer.begin()) second):IT_FirstContainer(first),IT_SecondContainer(second){           
             }
-                
-
                 //operators: to behave like iterator, we need: ++(increment) , *(access) , !=(not equal)
                 iterator& operator++() //prefix ++
                 {
@@ -42,14 +39,14 @@ namespace itertools
                     return couple(*IT_FirstContainer,*IT_SecondContainer); 
                 }
 
-                bool operator==(iterator &other) const 
+                bool operator==(const iterator &other) const 
                 {
                     return IT_FirstContainer == other.IT_FirstContainer;
                 }
 
-                bool operator!=(iterator &other) const
+                bool operator!=(const iterator &other) const
                 {
-                   return !(*this==other);
+                   return IT_FirstContainer != other.IT_FirstContainer;
                 }
 
             };
