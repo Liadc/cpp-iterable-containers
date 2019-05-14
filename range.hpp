@@ -9,17 +9,16 @@ namespace itertools {
     class range{
 
         private:
-        T _begin;
-        T _end;
+            T _begin;
+            T _end;
         public:
         //constructor
-        range<T>(const T begin,const T end)
-        :_begin(begin),_end(end){} 
+        range(const T begin,const T end) : _begin(begin),_end(end){} 
 
         //operators: to behave like iterator, we need: ++(increment) , *(access) , !=(not equal)
         class iterator{
             private:
-            T curr; //the current iterator.
+                T curr; //the current iterator.
             public:
             iterator(T element): curr(element){}
 
@@ -27,23 +26,19 @@ namespace itertools {
                  return curr;
             }
                  
-            iterator& operator ++(){ 
+            iterator &operator ++(){ 
                 ++curr;
                 return *this;
                 }
 
-            iterator operator ++(int) { 
-                iterator copy(*this);
-                ++curr;
-                return copy;
-            }
-
             bool operator ==(const iterator& other) const { return curr == other.curr;}
+
             bool operator !=(const iterator& other) const { return curr != other.curr;}
+
         };
         //begin and end function, will return the iterator of range<T>
-        iterator begin() const { return range<T>::iterator(_begin); } //for iterator_to_string function this MUST be const.
-        iterator end() const { return range<T>::iterator(_end);} 
+        iterator begin() const { return iterator(_begin); } //for iterator_to_string function this MUST be const.
+        iterator end() const { return iterator(_end);} 
 
 
         };
