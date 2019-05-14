@@ -51,9 +51,15 @@ int main() {
       for (auto zipped : zip(range(-1, 1), range(-1, 1)))
         zip1 << zipped << "<>";
       string zip1Ans = "-1,-1<>0,0<>";
-      // for (auto zipped : zip(range('a','c'), range(-1.1,1.0)))
-      //   zip1 << zipped << "<>";
-      // // tc.CHECK_EQUAL(zip1.str(), "-1,-1<>0,0<>");
+      for (auto zipped : zip(range('b','e'), range('a', 'b')))
+        zip2 << zipped << "<>";
+      string zip2Ans = "b,a<>c,b<>d,c<>";
+      for (auto zipped : zip(string("test"), range(0, 3)))
+        zip3 << zipped << "<>";
+      string zip3Ans = "t,0<>e,1<>s,2<>t,3<>";
+      for (auto zipped : zip(zip(range(0,1),range(3,4)), zip(range('a','c'),range('b','d'))))
+        zip4 << zipped << "<>";
+      string zip4Ans = "0,3,a,b<>";
 
     //Answers
       //Range answers:
@@ -89,6 +95,9 @@ int main() {
 
       .setname("Zips:")
       .CHECK_EQUAL(zip1.str(), zip1Ans)
+      .CHECK_EQUAL(zip2.str(), zip2Ans)
+      .CHECK_EQUAL(zip3.str(), zip3Ans)
+      .CHECK_EQUAL(zip4.str(), zip4Ans) //mixed combinations
 
 
       .setname("Products:")
