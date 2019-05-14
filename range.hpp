@@ -31,9 +31,9 @@ namespace itertools {
                 return *this;
                 }
 
-            bool operator ==(const iterator& other) const { return curr == other.curr;}
+            bool operator ==(iterator const& other) const { return curr == other.curr;}
 
-            bool operator !=(const iterator& other) const { return curr != other.curr;}
+            bool operator !=(iterator const& other) const { return curr != other.curr;}
 
         };
         //begin and end function, will return the iterator of range<T>
