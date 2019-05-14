@@ -13,64 +13,61 @@ namespace itertools
             T firstContainer;
             V secondContainer;
         public:
+            template <typename U, typename W>
             class iterator{ //inner class. should behave like iterator.
             private:
-                decltype(firstContainer.begin()) FirstContainerIt_start; //the beginning of the first container.
-                decltype(firstContainer.end()) FirstContainerIt_end; //the end of the first container ( will be used to check if we already ended the first container (by FirstContainerIt_end == FirstContainerIt_end))
-                decltype(secondContainer.begin()) SecondContainerIt_start; //the iterator of the SecondContainer
+                U firstContainerIt; //the iterator for the first container.
+                W secondContainerIt; //the iterator for the second container.
+                bool keepIteratingFirst; //indicates if we finished iterating the first container. (true = keep iterating first container.)
 
             public:
-                iterator(decltype(firstContainer.begin()) _sFirstContainer,decltype(firstContainer.end()) _FirstContainerIt_end,decltype(secondContainer.begin()) _sSecondContainer) : 
-                FirstContainerIt_start(_sFirstContainer), FirstContainerIt_end(_FirstContainerIt_end),SecondContainerIt_start(_sSecondContainer)
-                {} // constructor
+                iterator(U iteratable_A, W iteratable_B) : firstContainerIt(iteratable_A), secondContainerIt(iteratable_B), keepIteratingFirst(true) {}
 
                 //operators: to behave like iterator, we need: ++(increment) , *(access) , !=(not equal)
-                iterator& operator++() //prefix ++
-                {
-                    if(FirstContainerIt_start != FirstContainerIt_end){ //if we already finished the first iterator
-                         ++FirstContainerIt_start;
-                    
+                iterator& operator++() { //prefix ++
+                    if(keepIteratingFirst){ //if we already finished the first iterator
+                         ++firstContainerIt;
                     }else{
-                         ++SecondContainerIt_start;
-                         
+                         ++secondContainerIt;
                     }
                     return *this;
                 }
 
-                auto operator* () const
-                {   
-                    if(FirstContainerIt_start != FirstContainerIt_end){ //if we already finished the first iterator
-                        return *FirstContainerIt_start;
+                auto operator* () const{   
+                    if(keepIteratingFirst){ //if we have not finished the first iterator
+                        return *firstContainerIt;
                     }else{
-                        return *SecondContainerIt_start;
+                        return *secondContainerIt;
                     }
                 }
 
-                bool operator==(iterator &other) const
-                {
-                   return (this->FirstContainerIt_start == other.FirstContainerIt_start &&  this->SecondContainerIt_start == other.SecondContainerIt_start);
-                }
-
-                bool operator!=(iterator &other) const
-                {
-                   return !(*this==other);
+                bool operator!=(const chain::iterator<U,W> &other){
+                    //now check if we finished iterating the first container and should start iterating the second container:
+                    if (!(firstContainerIt != other.firstContainerIt)){
+                        if(keepIteratingFirst){
+                            keepIteratingFirst = false;
+                        }
+                    }
+                    if(keepIteratingFirst){
+                        return (firstContainerIt != other.firstContainerIt);
+                    }
+                    else{
+                        return (secondContainerIt != other.secondContainerIt);
+                    }
                 }
             }; //iterator inner class.
 
            chain<T,V>(const T a, const V b): firstContainer(a), secondContainer(b){} //constructor
 
            //begin and end functions
-            auto begin()
-            {
-                return chain<T,V>::iterator(firstContainer.begin(), firstContainer.end(),secondContainer.begin());
+            auto begin() const{
+                return iterator<decltype(firstContainer.begin()), decltype(secondContainer.begin())>(firstContainer.begin(), secondContainer.begin());
             }
 
-            auto end()
-            {
-                return chain<T,V>::iterator(firstContainer.end(), firstContainer.end(),secondContainer.end());
+            auto end() const{
+                return iterator<decltype(firstContainer.end()), decltype(secondContainer.end())>(firstContainer.end(), secondContainer.end());
             }
 
-            // friend std::ostream& operator<<(std::ostream& os, const chain& subset);
         };    
 }; // namespace itertools
 
