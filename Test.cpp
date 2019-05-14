@@ -70,7 +70,7 @@ int main() {
 
       .setname("Chains:")
       .CHECK_EQUAL(iterable_to_string(c1),chainAnswerArr[0])
-      // .CHECK_EQUAL(iterable_to_string(c2),chainAnswerArr[1]) //Error
+      .CHECK_EQUAL(iterable_to_string(c2),chainAnswerArr[1]) 
       .CHECK_EQUAL(iterable_to_string(double1),rangeAnswerArr[2])
 
       .setname("Zips:")
