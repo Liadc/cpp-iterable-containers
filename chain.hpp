@@ -60,12 +60,12 @@ namespace itertools
            chain<T,V>(const T a, const V b): firstContainer(a), secondContainer(b){} //constructor
 
            //begin and end functions
-            auto begin()
+            auto begin() 
             {
                 return chain<T,V>::iterator(firstContainer.begin(), firstContainer.end(),secondContainer.begin());
             }
 
-            auto end()
+            auto end() 
             {
                 return chain<T,V>::iterator(firstContainer.end(), firstContainer.end(),secondContainer.end());
             }

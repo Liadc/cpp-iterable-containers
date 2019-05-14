@@ -47,7 +47,7 @@ int main() {
 	for (int i: chain(range(1,4), range(5,8)))
 		cout << i;    // prints 123567
 	cout << endl << endl << "Chain of a range and a string: " << endl;
-	for (char i: chain(range('a','e'), string("hello")))
+	for (char i: chain(string("hello"),range('a','e')))
 		cout << i;    // abcdhello
 
 	cout << endl << endl << "Zip a range of ints and a string (must be of the same size)" << endl;
@@ -69,6 +69,7 @@ int main() {
 		cout << subset;  // {}{a}{b}{a,b}{x}{a,x}{b,x}{a,b,x}{y}{a,y}{b,y}{a,b,y}{x,y}{a,x,y}{b,x,y}{a,b,x,y}
 	cout << endl;
 	// cout << iterable_to_string(powerset(chain(range('a','c'),range('x','z')))) << endl;
+	// cout << iterable_to_string(powerset(range('a','c'))) << endl;
 	return 0;
 }
 
