@@ -47,7 +47,7 @@ int main() {
     chain c2 = chain(str,char1);
     chain c3 = chain(int1,double1);
 
-    std::ostringstream zip1, zip2, zip3, zip4, zip5;
+    std::ostringstream zip1, zip2, zip3, zip4;
       for (auto zipped : zip(range(-1, 1), range(-1, 1)))
         zip1 << zipped << "<>";
       string zip1Ans = "-1,-1<>0,0<>";
@@ -60,6 +60,23 @@ int main() {
       for (auto zipped : zip(zip(range(0,1),range(3,4)), zip(range('a','c'),range('b','d'))))
         zip4 << zipped << "<>";
       string zip4Ans = "0,3,a,b<>";
+
+      std::ostringstream prod1, prod2, prod3, prod4, prod5;
+      for (auto product : product(range(-1, 1), range(-1, 1)))
+        prod1 << product << "*";
+      string prod1Ans = "-1,-1*-1,0*0,-1*0,0*";
+      for (auto product : product(range('b','e'), range('a', 'b')))
+        prod2 << product << "*";
+      string prod2Ans = "b,a*c,a*d,a*";
+      for (auto product : product(string("test"), range(0, 3)))
+        prod3 << product << "*";
+      string prod3Ans = "t,0*t,1*t,2*e,0*e,1*e,2*s,0*s,1*s,2*t,0*t,1*t,2*";
+      for (auto product : product(zip(range(0,1),range(3,4)), zip(range('a','c'),range('b','d'))))
+        prod4 << product << "*";
+      string prod4Ans = "0,3,a,b*0,3,b,c*";
+      for (auto product : product(product(zip(range(0,1),range(3,4)), zip(range('a','c'),range('b','d'))),product(string("test"), range(0, 2))))
+        prod5 << product << "*";
+      string prod5Ans = "0,3,a,b,t,0*0,3,a,b,t,1*0,3,a,b,e,0*0,3,a,b,e,1*0,3,a,b,s,0*0,3,a,b,s,1*0,3,a,b,t,0*0,3,a,b,t,1*0,3,b,c,t,0*0,3,b,c,t,1*0,3,b,c,e,0*0,3,b,c,e,1*0,3,b,c,s,0*0,3,b,c,s,1*0,3,b,c,t,0*0,3,b,c,t,1*";
 
     //Answers
       //Range answers:
@@ -101,7 +118,11 @@ int main() {
 
 
       .setname("Products:")
-
+      .CHECK_EQUAL(prod1.str(), prod1Ans)
+      .CHECK_EQUAL(prod2.str(), prod2Ans)
+      .CHECK_EQUAL(prod3.str(), prod3Ans)
+      .CHECK_EQUAL(prod4.str(), prod4Ans) //mixed
+      .CHECK_EQUAL(prod5.str(), prod5Ans) //huge mixed
 
       .setname("Powersets:")
       .CHECK_EQUAL(toString(powerset(range(-3,2))),string("{},{-3},{-2},{-3,-2},{-1},{-3,-1},{-2,-1},{-3,-2,-1},{0},{-3,0},{-2,0},{-3,-2,0},{-1,0},{-3,-1,0},{-2,-1,0},{-3,-2,-1,0},{1},{-3,1},{-2,1},{-3,-2,1},{-1,1},{-3,-1,1},{-2,-1,1},{-3,-2,-1,1},{0,1},{-3,0,1},{-2,0,1},{-3,-2,0,1},{-1,0,1},{-3,-1,0,1},{-2,-1,0,1},{-3,-2,-1,0,1},")) 
