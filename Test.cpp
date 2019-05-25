@@ -78,11 +78,12 @@ int main() {
         prod5 << product << "*";
       string prod5Ans = "0,3,a,b,t,0*0,3,a,b,t,1*0,3,a,b,e,0*0,3,a,b,e,1*0,3,a,b,s,0*0,3,a,b,s,1*0,3,a,b,t,0*0,3,a,b,t,1*0,3,b,c,t,0*0,3,b,c,t,1*0,3,b,c,e,0*0,3,b,c,e,1*0,3,b,c,s,0*0,3,b,c,s,1*0,3,b,c,t,0*0,3,b,c,t,1*";
 
+      //check compilation for all combinations: 
+      //----------------NOTE: THIS SHOULD TAKE AROUND A MINUTE TO COMPLETE. MIGHT FLOOD TERMINAL. UNCOMMENT & COMPILE ON YOUR RESPONSIBILITY-----------------------------
       //   std::ostringstream power;
       //  for (auto subset : powerset(product(product(zip(range(0,1),range(3,4)), zip(range('a','c'),range('b','d'))),product(string("test"), range(0, 2)))))
       //     power << subset << "-";
       //   cout << "\n\n answer: " << power.str();
-
 
     //Answers
       //Range answers:
@@ -135,7 +136,7 @@ int main() {
       .CHECK_EQUAL(toString(powerset(range(-1.1,2.9))),string("{},{-1.1},{-0.1},{-1.1,-0.1},{0.9},{-1.1,0.9},{-0.1,0.9},{-1.1,-0.1,0.9},{1.9},{-1.1,1.9},{-0.1,1.9},{-1.1,-0.1,1.9},{0.9,1.9},{-1.1,0.9,1.9},{-0.1,0.9,1.9},{-1.1,-0.1,0.9,1.9},"))
       .CHECK_EQUAL(toString(powerset(chain(oneChar,string("b")))),string("{},{a},{b},{a,b},")) //powerset chains
       .CHECK_EQUAL(toString(powerset(powerset(chain(oneChar,string("b"))))),string("{},{a},{b},{a,b},")) //powerset of powerset, of another container
-      // .CHECK_EQUAL(power.str(), "really cant compile this, check line 81-84. powerset cant work with zip and product.") //error 
+
       .print();
 
       cout<< "After tests: " <<  endl; 
