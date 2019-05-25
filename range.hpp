@@ -9,8 +9,8 @@ namespace itertools {
     class range{
 
         private:
-            T _begin;
-            T _end;
+            const T _begin;
+            const T _end;
         public:
         //constructor
         range(const T begin,const T end) : _begin(begin),_end(end){} 
