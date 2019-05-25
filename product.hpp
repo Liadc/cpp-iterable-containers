@@ -39,19 +39,16 @@ namespace itertools {
                     }
                     return *this;
                 }
-                auto operator *(){ //will return a "couple" of the iterators
+                auto operator *() const{ //will return a "couple" of the iterators
                     return couple(*firstItr,*secondItr);
                 }
 
-
-                bool operator==(iterator& other) const
-                    {
+                bool operator==(const iterator other) {
                     return (this->firstItr == other.firstItr && this->secondItr == other.secondItr);
-                    }
+                }
 
-                bool operator!=(iterator& other) const
-                {
-                    return !(*this==other);
+                bool operator!=(const iterator other) {
+                    return (firstItr != other.firstItr && secondItr != other.secondItr);
                 }
             };
 
