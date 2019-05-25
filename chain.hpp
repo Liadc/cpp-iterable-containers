@@ -9,9 +9,8 @@ namespace itertools
     template <typename T, typename V>
     class chain{ //might be of the form chain< range<char>, string> but iterator should return type char.
         private:
-
-            T firstContainer;
-            V secondContainer;
+            const T firstContainer;
+            const V secondContainer;
         public:
             template <typename U, typename W>
             class iterator{ //inner class. should behave like iterator.
