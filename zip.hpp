@@ -38,14 +38,12 @@ namespace itertools
                     return couple(*IT_FirstContainer,*IT_SecondContainer); 
                 }
 
-                bool operator==(const iterator &other) const 
-                {
+                bool operator==(const iterator &other) {
                     return IT_FirstContainer == other.IT_FirstContainer;
                 }
 
-                bool operator!=(const iterator &other) const
-                {
-                   return IT_FirstContainer != other.IT_FirstContainer;
+                bool operator!=(const iterator &other) {
+                   return (IT_FirstContainer != other.IT_FirstContainer) && (IT_SecondContainer != other.IT_SecondContainer);
                 }
 
             };
