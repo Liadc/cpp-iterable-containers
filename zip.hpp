@@ -2,7 +2,6 @@
 
 #include <iostream>
 #include <string>
-#include "range.hpp"
 
 using namespace std;
 
@@ -13,8 +12,8 @@ namespace itertools
     template <typename T, typename V>
     class zip{ 
         private:
-            T firstContainer;
-            V secondContainer;
+            const T firstContainer;
+            const V secondContainer;
 
         public:
            zip<T,V>(const T a, const V b): firstContainer(a), secondContainer(b){} //constructor
@@ -53,13 +52,11 @@ namespace itertools
 
         public:
            //begin and end functions
-            iterator begin()
-            {
+            iterator begin() const{
             return iterator(firstContainer.begin(),secondContainer.begin());
             }
 
-            iterator end()
-            {
+            iterator end() const{
             return iterator(firstContainer.end(),secondContainer.end());
             }
 
