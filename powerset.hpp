@@ -18,8 +18,8 @@ namespace itertools
         class iterator
         { //private inner class. should behave like iterator.
         private:  //private of iterator.
-            V cont_first;             //the first element of the container.
-            V cont_last;              //the last element of the container.
+            const V cont_first;             //the first element of the container.
+            const V cont_last;              //the last element of the container.
             size_t totalPowerset;     //the size of the powerset. it will always be 2^(container.size).
             unsigned int indexSubset; //with indexing, the iterator will know at which place of powerset it is currently iterating over.
 
