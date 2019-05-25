@@ -3,28 +3,27 @@
 // #define DEFINE 
 
 #include <iostream>
-#include "range.hpp"
-#include "chain.hpp"
 #include "zip.hpp"
+
 using namespace std;
 
 namespace itertools {
     template<typename T,typename V> class product{
         private:
-            T firstProduct;
-            V secondProduct;
+            const T firstProduct;
+            const V secondProduct;
         public:
-            product(T a, V b):firstProduct(a),secondProduct(b){}
+            product(const T a, const V b):firstProduct(a),secondProduct(b){}
         class iterator{
             private:
-                typename T::iterator firstItr;
-                typename T::iterator firstItr_end;
-                typename V::iterator secondItr;
-                typename V::iterator secondItr_end;
-                typename V::iterator secondItrSave;
+                decltype(firstProduct.begin()) firstItr;
+                decltype(firstProduct.end()) firstItr_end;
+                decltype(secondProduct.begin()) secondItr;
+                decltype(secondProduct.end()) secondItr_end;
+                decltype(secondProduct.begin()) secondItrSave;
             public:
                 //constructor
-                iterator(typename T::iterator first,typename T::iterator fend,typename V::iterator second,typename V::iterator send): 
+                iterator(decltype(firstProduct.begin()) first,decltype(firstProduct.end()) fend,decltype(secondProduct.begin()) second,decltype(secondProduct.end()) send): 
                 firstItr(first),secondItrSave(second),secondItr(second),firstItr_end(fend),secondItr_end(send){}
 
             
@@ -57,11 +56,11 @@ namespace itertools {
             };
 
             //begin and end 
-            iterator begin(){
-                return product<T,V>::iterator(firstProduct.begin(),firstProduct.end(),secondProduct.begin(),secondProduct.end());
+            iterator begin() const{
+                return iterator(firstProduct.begin(),firstProduct.end(),secondProduct.begin(),secondProduct.end());
             }
-            iterator end(){
-                return product<T,V>::iterator(firstProduct.end(),firstProduct.end(),secondProduct.end(),secondProduct.end());
+            iterator end() const{
+                return iterator(firstProduct.end(),firstProduct.end(),secondProduct.end(),secondProduct.end());
             }
     };
 }
